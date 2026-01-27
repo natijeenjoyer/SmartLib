@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartLib AI - Intelligent Library Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-gradient"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>SmartLib<span class="ai-text">AI</span></h1>
+                <p class="tagline">Intelligent Library Management System</p>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-section="search">Search</button>
+                <button class="nav-btn" data-section="books">Books</button>
+                <button class="nav-btn" data-section="users">Users</button>
+                <button class="nav-btn" data-section="loans">Loans</button>
+                <button class="nav-btn" data-section="analytics">Analytics</button>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Search Section -->
+            <section id="search" class="content-section active">
+                <div class="panel">
+                    <h2>Search Library</h2>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search by title, author, category, or tags...">
+                        <button class="btn-primary" id="searchBtn">Search</button>
+                    </div>
+                    <div id="searchResults" class="results-container"></div>
+                </div>
+            </section>
+
+            <!-- Books Section -->
+            <section id="books" class="content-section">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Book Management</h2>
+                        <button class="btn-secondary" id="addBookBtn">+ Add Book</button>
+                    </div>
+                    
+                    <div class="books-grid" id="booksGrid"></div>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section id="users" class="content-section">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>User Management</h2>
+                        <button class="btn-secondary" id="addUserBtn">+ Add User</button>
+                    </div>
+                    
+                    <div class="users-list" id="usersList"></div>
+                </div>
+            </section>
+
+            <!-- Loans Section -->
+            <section id="loans" class="content-section">
+                <div class="panel">
+                    <h2>Loan Management</h2>
+                    <div class="loan-actions">
+                        <div class="action-card">
+                            <h3>Borrow Book</h3>
+                            <input type="text" id="borrowUserId" placeholder="User ID">
+                            <input type="text" id="borrowBookId" placeholder="Book ID or Barcode">
+                            <button class="btn-primary" id="borrowBtn">Borrow</button>
+                        </div>
+                        <div class="action-card">
+                            <h3>Return Book</h3>
+                            <p class="help-text">Enter Loan ID from the list below, or click "Return Book" button on any active loan</p>
+                            <input type="text" id="returnLoanId" placeholder="Loan ID">
+                            <button class="btn-primary" id="returnBtn">Return</button>
+                        </div>
+                    </div>
+                    <div class="loans-section-header">
+                        <h3>Active Loans</h3>
+                        <p class="help-text">Each loan shows its Loan ID. Use the ID to return the book, or click the "Return Book" button directly.</p>
+                    </div>
+                    <div id="loansList" class="loans-list"></div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="content-section">
+                <div class="panel">
+                    <h2>Analytics Dashboard</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📚</div>
+                            <div class="stat-value" id="totalBooks">0</div>
+                            <div class="stat-label">Total Books</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✓</div>
+                            <div class="stat-value" id="availableBooks">0</div>
+                            <div class="stat-label">Available</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-value" id="totalUsers">0</div>
+                            <div class="stat-label">Total Users</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📖</div>
+                            <div class="stat-value" id="activeLoans">0</div>
+                            <div class="stat-label">Active Loans</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⚠️</div>
+                            <div class="stat-value" id="overdueLoans">0</div>
+                            <div class="stat-label">Overdue</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🔥</div>
+                            <div class="stat-value" id="totalLoans">0</div>
+                            <div class="stat-label">Total Loans</div>
+                        </div>
+                    </div>
+                    <div class="popular-books">
+                        <h3>Most Popular Books</h3>
+                        <div id="popularBooksList" class="popular-list"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="addBookModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Book</h2>
+            <form id="addBookForm">
+                <input type="text" id="bookId" placeholder="Book ID" required>
+                <input type="text" id="bookTitle" placeholder="Title" required>
+                <input type="text" id="bookAuthor" placeholder="Author" required>
+                <input type="text" id="bookIsbn" placeholder="ISBN" required>
+                <input type="text" id="bookBarcode" placeholder="Barcode">
+                <input type="text" id="bookCategory" placeholder="Category">
+                <textarea id="bookDescription" placeholder="Description"></textarea>
+                <input type="text" id="bookTags" placeholder="Tags (comma-separated)">
+                <button type="submit" class="btn-primary">Add Book</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New User</h2>
+            <form id="addUserForm">
+                <input type="text" id="userId" placeholder="User ID" required>
+                <input type="text" id="userName" placeholder="Name" required>
+                <input type="email" id="userEmail" placeholder="Email" required>
+                <input type="text" id="userPhone" placeholder="Phone Number">
+                <button type="submit" class="btn-primary">Add User</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="api-client.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
